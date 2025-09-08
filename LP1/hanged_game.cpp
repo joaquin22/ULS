@@ -149,7 +149,7 @@ int main()
     string randomWord = getRandomWord();
     string progress(randomWord.length(), '_');
 
-    txtProgress.setString("Palabra: " + progress);
+    txtProgress.setString("Palabra(" + to_string(randomWord.length()) + "):" + progress);
 
     int errorsCount = 0;
     bool finishGame = false;
