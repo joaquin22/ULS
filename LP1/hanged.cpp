@@ -3,76 +3,88 @@
 #include <cctype>
 using namespace std;
 
-bool hanged(char letter, string word, string &wordFound, int &tries)
+static string dictionary[20] = {"CASA", "PERRO", "GATO", "SOL", "MESA", "COCHE", " PAN", " LIBRO", "FLOR", "MAR", "TREN", "SILLA", "RÍO", "MANO", "LUNA", "NIÑO", "PEZ", "CAMA", "LECHE", "BESO"};
+
+string updateProgress(char letter, string word, string progress)
 {
 
-    cout << "Ingrese una letra: ";
-    cin >> letter;
-    bool has_occurences = false;
     for (int i = 0; i <= word.length(); i++)
     {
         if (word[i] == letter)
         {
-            wordFound[i] = letter;
-            has_occurences = true;
+            progress[i] = letter;
         }
     }
-
-    if (!has_occurences)
-    {
-        tries++;
-    }
-
-    cout << wordFound << endl;
-
-    if (word == wordFound)
-    {
-        return true;
-    }
-
-    return false;
+    cout << progress << endl;
+    return progress;
 }
 
+bool IsLetterInWord(string word, char letter)
+{
+    return word.find(letter) != string::npos;
+}
+
+bool replay(string &randomWord, int &errors, string &progress)
+{
+    char replayInput;
+
+    cout << "Desea jugar de nuevo(S/N):";
+    cin >> replayInput;
+    if (toupper(replayInput) == 'S')
+    {
+        errors = 0;
+        randomWord = dictionary[rand() % 20];
+        cout << "Palabra de " << randomWord.length() << endl;
+        progress = string(randomWord.length(), '*');
+        return true;
+    }
+    else
+        return false;
+}
 
 int main()
 {
-    const unsigned int maxTries = 5;
-    const string wordList[2] = {"hola", "adias"};
-    string word = wordList[rand() % 2];
-    cout << "Palabra de " << word.length() << " letras" << endl;
-    string wordFound(word.length(), '*');
+
+    srand(time(0));
+    string randomWord = dictionary[rand() % 2];
+    cout << "Palabra de " << randomWord.length() << " letras" << endl;
+    string progress(randomWord.length(), '*');
     char letter;
-    char replayInput;
-    int tries = 0;
+    int errors = 0;
+    const int MAX_ERRORS = 6;
     while (true)
     {
-        bool find = hanged(letter, word, wordFound, tries);
-        if (find)
+
+        cout << "Ingrese una letra: ";
+        cin >> letter;
+        if (IsLetterInWord(randomWord, letter))
         {
-            cout << "Desea jugar de nuevo(S/N):";
-            cin >> replayInput;
-            if (toupper(replayInput) == 'S')
+
+            progress = updateProgress(letter, randomWord, progress);
+            if (progress == randomWord)
             {
-                tries = 0;
-                word = wordList[rand() % 2];
-                cout << "Palabra de " << word.length() << endl;
-                wordFound = string(word.length(), '*');
+                bool canReplay = replay(randomWord, errors, progress);
+                if (!canReplay)
+                    break;
             }
-            else if (toupper(replayInput) == 'N')
-                break;
         }
         else
         {
-            cout << "Te quedan " << maxTries - tries << " intentos" << endl;
-            if (tries == maxTries)
+
+            errors++;
+
+            if (errors >= MAX_ERRORS)
             {
-                cout << "Perdiste la palabra era " << word << endl;
-                find = true;
+                cout << "Perdiste, la palabra era: " << randomWord << endl;
+
+                bool canReplay = replay(randomWord, errors, progress);
+                if (!canReplay)
+                    break;
             }
+
+            cout << "Errores: " << errors << "/" << MAX_ERRORS << endl;
         }
     }
-
     cout << "Juego terminado";
-
     return 0;
 }
