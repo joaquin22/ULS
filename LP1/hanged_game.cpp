@@ -2,7 +2,6 @@
 #include <iostream>
 #include <string>
 #include <cctype>
-#include <vector>
 
 #include <SFML/Graphics.hpp>
 #include <bits/stdc++.h>
@@ -37,10 +36,8 @@ void drawGallow(sf::RenderWindow &window)
 
 void drawBody(sf::RenderWindow &window, int error)
 {
-
     if (error >= 1)
     {
-
         // HEAD
         sf::CircleShape head(28.f);
         head.setPosition(275.f, 210.f);
@@ -104,7 +101,6 @@ string getRandomWord()
 
 string updateProgress(char letter, string randomWord, string progress)
 {
-
     for (int i = 0; i <= randomWord.length(); i++)
     {
         if (randomWord[i] == letter)
@@ -112,6 +108,7 @@ string updateProgress(char letter, string randomWord, string progress)
             progress[i] = letter;
         }
     }
+
     return progress;
 }
 
@@ -123,7 +120,7 @@ bool IsLetterInWord(string word, char letter)
 int main()
 {
 
-    sf::RenderWindow window(sf::VideoMode({1280, 720}), "SFML window");
+    sf::RenderWindow window(sf::VideoMode({1280, 720}), "Juego del ahorcado");
 
     sf::Font font;
     font.loadFromFile("Roboto-Light.ttf");

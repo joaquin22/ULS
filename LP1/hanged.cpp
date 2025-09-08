@@ -57,6 +57,7 @@ int main()
 
         cout << "Ingrese una letra: ";
         cin >> letter;
+        letter = toupper(letter);
         if (IsLetterInWord(randomWord, letter))
         {
 
