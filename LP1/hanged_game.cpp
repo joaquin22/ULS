@@ -8,7 +8,13 @@
 
 using namespace std;
 
-static string dictionary[20] = {"CASA", "PERRO", "GATO", "SOL", "MESA", "COCHE", " PAN", " LIBRO", "FLOR", "MAR", "TREN", "SILLA", "RÍO", "MANO", "LUNA", "NIÑO", "PEZ", "CAMA", "LECHE", "BESO"};
+static string dictionary[20] = {"CASA", "PERRO", "GATO", "SOL", "MESA", "COCHE", "PAN", " LIBRO", "FLOR", "MAR", "TREN", "SILLA", "RÍO", "MANO", "LUNA", "NIÑO", "PEZ", "CAMA", "LECHE", "BESO"};
+
+struct Coords
+{
+    float x;
+    float y;
+};
 
 void drawGallow(sf::RenderWindow &window)
 {
@@ -34,6 +40,15 @@ void drawGallow(sf::RenderWindow &window)
     window.draw(rope);
 }
 
+void draw(sf::RenderWindow &window, Coords init, Coords position, float rotation)
+{
+    sf::RectangleShape shape(sf::Vector2f(init.x, init.y));
+    shape.setPosition(position.x, position.y);
+    shape.setFillColor(sf::Color(80, 80, 80));
+    shape.setRotation(rotation);
+    window.draw(shape);
+}
+
 void drawBody(sf::RenderWindow &window, int error)
 {
     if (error >= 1)
@@ -48,47 +63,64 @@ void drawBody(sf::RenderWindow &window, int error)
     }
     if (error >= 2)
     {
-        // LEFT ARM
-        sf::RectangleShape lArm(sf::Vector2f(60.f, 7.f));
-        lArm.setPosition(250.f, 303.f);
-        lArm.setFillColor(sf::Color(80, 80, 80));
-        lArm.setRotation(-40.f);
-        window.draw(lArm);
+        // // LEFT ARM
+        // sf::RectangleShape lArm(sf::Vector2f(60.f, 7.f));
+        // lArm.setPosition(250.f, 303.f);
+        // lArm.setFillColor(sf::Color(80, 80, 80));
+        // lArm.setRotation(-40.f);
+        // window.draw(lArm);
+        Coords init = {60.f, 7.f};
+        Coords position = {250.f, 303.f};
+        draw(window, init, position, -40.f);
     }
     if (error >= 3)
     {
         // RIGHT ARM
-        sf::RectangleShape RArm(sf::Vector2f(60.f, 7.f));
-        RArm.setPosition(305.f, 265.f);
-        RArm.setFillColor(sf::Color(80, 80, 80));
-        RArm.setRotation(40.f);
-        window.draw(RArm);
+        // sf::RectangleShape RArm(sf::Vector2f(60.f, 7.f));
+        // RArm.setPosition(305.f, 265.f);
+        // RArm.setFillColor(sf::Color(80, 80, 80));
+        // RArm.setRotation(40.f);
+        // window.draw(RArm);
+
+        Coords init = {60.f, 7.f};
+        Coords position = {305.f, 265.f};
+        draw(window, init, position, 40.f);
     }
     if (error >= 4)
     {
         // BODY
-        sf::RectangleShape body(sf::Vector2f(7.f, 80.f));
-        body.setPosition(300.f, 265.f);
-        body.setFillColor(sf::Color(80, 80, 80));
-        window.draw(body);
+        // sf::RectangleShape body(sf::Vector2f(7.f, 80.f));
+        // body.setPosition(300.f, 265.f);
+        // body.setFillColor(sf::Color(80, 80, 80));
+        // window.draw(body);
+
+        Coords init = {7.f, 80.f};
+        Coords position = {300.f, 265.f};
+        draw(window, init, position, 0.f);
     }
     if (error >= 5)
     {
         // LEFT LEG
-        sf::RectangleShape LLeg(sf::Vector2f(75.f, 7.f));
-        LLeg.setPosition(247.f, 385.f);
-        LLeg.setFillColor(sf::Color(80, 80, 80));
-        LLeg.setRotation(-40.f);
-        window.draw(LLeg);
+        // sf::RectangleShape LLeg(sf::Vector2f(75.f, 7.f));
+        // LLeg.setPosition(247.f, 385.f);
+        // LLeg.setFillColor(sf::Color(80, 80, 80));
+        // LLeg.setRotation(-40.f);
+        // window.draw(LLeg);
+        Coords init = {75.f, 7.f};
+        Coords position = {247.f, 385.f};
+        draw(window, init, position, -40.f);
     }
     if (error >= 6)
     {
         // RIGHT LEG
-        sf::RectangleShape RLeg(sf::Vector2f(75.f, 7.f));
-        RLeg.setPosition(305.f, 338.f);
-        RLeg.setFillColor(sf::Color(80, 80, 80));
-        RLeg.setRotation(40.f);
-        window.draw(RLeg);
+        // sf::RectangleShape RLeg(sf::Vector2f(75.f, 7.f));
+        // RLeg.setPosition(305.f, 338.f);
+        // RLeg.setFillColor(sf::Color(80, 80, 80));
+        // RLeg.setRotation(40.f);
+        // window.draw(RLeg);
+        Coords init = {75.f, 7.f};
+        Coords position = {305.f, 338.f};
+        draw(window, init, position, 40.f);
     }
 }
 
